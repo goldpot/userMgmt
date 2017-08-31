@@ -1,0 +1,119 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        {{pageTitle}}
+    </div>
+
+    <div class="panel-body">
+        <form class="form-horizontal"
+              novalidate
+              (ngSubmit)="saveUser()"
+              [formGroup]="userForm" >
+            <fieldset>
+                
+            <div class="form-group"
+                [ngClass]="{'has-error': (userForm.get('userName').touched || 
+                                          userForm.get('userName').dirty) &&
+                                          !userForm.get('userName').valid }">
+                <label class="col-md-2 control-label" 
+                       for="userNameId">User Name</label>
+
+                <div class="col-md-8">
+                    <input class="form-control" 
+                           id="userNameId" 
+                           type="text" 
+                           placeholder="User Name (required)" 
+                           formControlName="userName" />
+                    <span class="help-block" *ngIf="(userForm.get('userName').touched || 
+                                                     userForm.get('userName').dirty) && 
+                                                     userForm.get('userName').errors">
+                        <span *ngIf="userForm.get('userName').errors.required">
+                            Please enter your user name.
+                        </span>
+                        <span *ngIf="userForm.get('userName').errors.minlength">
+                            The user name must be longer than 4 characters.
+                        </span>
+                        <span *ngIf="userForm.get('userName').errors.maxlength">
+                            The user name must be maxlength of 20 characters.
+                        </span>
+                        <span *ngIf="userForm.get('userName').errors.pattern">
+                            The user name must not contain $,#,%,@.
+                        </span>
+                    </span>
+                </div>
+            </div>                
+                
+            <div class="form-group"
+            [ngClass]="{'has-error': (userForm.get('userAge').touched || 
+                                      userForm.get('userAge').dirty) && 
+                                      !userForm.get('userAge').valid }">
+            <label class="col-md-2 control-label" 
+                for="userAgeId">User Age</label>
+
+            <div class="col-md-8">
+                <input class="form-control" 
+                       id="userAgeId" 
+                       type="number" 
+                       formControlName = "userAge" />
+                <span class="help-block" *ngIf="(userForm.get('userAge').touched 
+                                                 || userForm.get('userAge').dirty) && 
+                                                 userForm.get('userAge').errors">
+                     <span *ngIf="userForm.get('userAge').errors.range">
+                        Please input age between 1 and 100.
+                    </span>
+               </span>
+            </div>
+        </div>
+
+        <div class="form-group"
+        [ngClass]="{'has-error': (userForm.get('userEmail').touched || 
+                                  userForm.get('userEmail').dirty) &&
+                                  !userForm.get('userEmail').valid }">
+        <label class="col-md-2 control-label" 
+               for="userEmailId">User Email</label>
+
+        <div class="col-md-8">
+            <input class="form-control" 
+                   id="userEmailId" 
+                   type="email" 
+                   placeholder="User Email (required)" 
+                   formControlName="userEmail" />
+            <span class="help-block" *ngIf="(userForm.get('userEmail').touched || 
+                                             userForm.get('userEmail').dirty) && 
+                                             userForm.get('userEmail').errors">
+                <span *ngIf="userForm.get('userEmail').errors.validEmail">
+                    Please enter your user email.
+                </span>                
+                
+            </span>
+        </div>
+    </div> 
+                
+               
+
+                
+
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <span>
+                            <button class="btn btn-primary"
+                                    type="submit"
+                                    style="width:80px;margin-right:10px"
+                                    [disabled]='!userForm.valid'>
+                                Save
+                            </button>
+                        </span>
+                        <span>
+                            <a class="btn btn-default"
+                               style="width:80px"
+                               [routerLink]="['/users']">
+                                Cancel
+                            </a>
+                        </span>                         
+                     </div>
+                </div>
+            </fieldset>
+        </form>
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+    </div>
+
+</div>
